@@ -8,7 +8,7 @@
 
 - Ir al servidor VNC y usar el comando netstat -n para ver las conexiones VNC con el cliente.
 
-![2.1.1](img/captura2.1.png)
+![2.1.1](img/captura2.1.1.png)
 
 4.1 Comprobaciones finales GNU/Linux:
 
