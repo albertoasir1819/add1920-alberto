@@ -70,44 +70,44 @@ Nos sale un mensaje de warning ya que ha cambiado el identificador de host remot
 
   *  El modo recomendado es usando el comando `ssh-copy-id`. Ejemplo para copiar la clave pública del usuario actual al usuario remoto en la máquina remota: `ssh-copy-id 1er-apellido-alumno4@ssh-serverXXg`.
 
-![imagen11](img/16.png)
+![imagen13](img/16.png)
 
 * Comprobamos que ahora al acceder remotamente vía SSH
 
   *  Desde `ssh-client17g`, NO se pide password.
 
-![imagen11](img/17.png)
+![imagen14](img/17.png)
 
   *  Desde `ssh-client17w`, SI se pide el password.
 
-![imagen11](img/18.png)
+![imagen15](img/18.png)
 
 ## 6. Uso de SSH como túnel para X
 
 
   *  Instalar en el servidor una aplicación de entorno gráfico (APP1) que no esté en los clientes. Por ejemplo Geany. Si estuviera en el cliente entonces buscar otra aplicación o desinstalarla en el cliente.
 
-![imagen11](img/geany-server.png)
+![imagen16](img/geany-server.png)
 
   *  Modificar servidor SSH para permitir la ejecución de aplicaciones gráficas, desde los clientes. Consultar fichero de configuración `/etc/ssh/sshd_config` (Opción X11Forwarding yes).
 
-![imagen11](img/geany-server2.png)  
+![imagen17](img/geany-server2.png)  
 
   *  Reiniciar el servicio SSH para que se lean los cambios de confiuración.
 
-![imagen11](img/server2.png)
+![imagen18](img/server2.png)
 
 Vamos al cliente17g.
 
   *  `zypper` se APP1, comprobamos que no está instalado el programa APP1.
 
-![imagen11](img/geany.png)
+![imagen19](img/geany.png)
 
   *  Vamos a comprobar desde `ssh-client17g`, que funciona APP1(del servidor).
 
     *   `ssh -X primer-apellido-alumno1@ssh-serverXXg`, nos conectamos de forma remota al servidor, y ahora ejecutamos APP1 de forma remota.
 
-![imagen11](img/20.png)
+![imagen20](img/20.png)
 
 ## 8.1 Restricción sobre un usuario
 
@@ -120,9 +120,11 @@ Vamos a crear una restricción de uso del SSH para un usuario:
 
   *  Consultamos/modificamos fichero de configuración del servidor SSH (`/etc/ssh/sshd_config`) para restringir el acceso a determinados usuarios.
 
-![imagen11](img/denyuser.png)
+![imagen21](img/denyuser.png)
 
 
   *  Comprobamos la restricción al acceder desde los clientes.
 
-![imagen11](img/denyuser2.png)
+![imagen22](img/denyuser2.png)
+
+![imagen23](img/denyuser3.png)
