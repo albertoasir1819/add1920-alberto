@@ -41,6 +41,8 @@ Vamos a comprobar el funcionamiento de la conexión SSH desde cada cliente usand
 
 ![imagen8](img/10.png)
 
+![imagen8.s](img/puttyw.png)
+
 Nos sale un mensaje de warning ya que ha cambiado el identificador de host remoto.
 
 * Para solucionarlo hacemos lo que no sale en el warning, lo que borrará esa clave almacenada en el cliente.
