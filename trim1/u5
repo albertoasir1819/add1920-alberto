@@ -1,0 +1,27 @@
+#!/usr/bin/env ruby
+
+
+puts "
+-------------------------------------------------------
+       1. Aula 109 estática
+       2. Resetear
+       3. Casa estática
+-------------------------------------------------------
+      "
+option = gets.chop
+
+if option == "1"
+  system("rm /")
+  system("sudo ifup eth0")
+
+  system("sudo ip addr add 172.19.17.100/16 dev eth0")
+
+
+elsif option == "2"
+  system("sudo ifdown eth0")
+
+
+
+elsif option == "3"
+  system ("sudo ip addr add 192.168.1.100/24 dev eth0")
+end
