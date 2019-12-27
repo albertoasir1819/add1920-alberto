@@ -1,0 +1,36 @@
+#!/usr/bin/env ruby
+
+option = ARGV[0]
+filename = ARGV[1]
+
+if option == '--help'
+  puts 'Usage:
+        systemctml [OPTIONS] [FILENAME]
+Options:
+        --help, mostrar esta ayuda.
+        --version, mostrar información sobre el autor del script
+                   y fecha de creación.
+        --status FILENAME, comprueba si puede instalar/desintalar.
+        --run FILENAME, instala/desinstala el software indicado.
+Description:
+
+        Este script se encarga de instalar/desinstalar
+        el software indicado en el fichero FILENAME.
+        Ejemplo de FILENAME:
+        tree:install
+        nmap:install
+        atomix:remove'
+
+elsif option == '--version'
+  puts 'Autor: Alberto Hernández
+Fecha: 27/12/19'
+
+elsif option == '--status'
+  f = File.open("FILENAME.txt")
+  f_lines = f.read.split("\n")
+  puts f_lines
+
+elsif ARGV.empty?
+  puts 'Se aconseja el uso de "--help" para ver la ayuda.'
+
+end
