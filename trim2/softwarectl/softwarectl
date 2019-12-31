@@ -1,7 +1,39 @@
-#!/usr/bin/env ruby
+#!/usr/bin/ruby
 
 option = ARGV[0]
 filename = ARGV[1]
+
+def check(as)
+  status = `whereis #{as[0]} |grep bin |wc -l`.to_i
+    if status == 0
+      puts "#{as[0]} ->  (U) uninstalled"
+    elsif status == 1
+      puts "#{as[0]} ->  (I) installed"
+    end
+
+end
+
+def install(as)
+  status = `whereis #{as[0]} |grep bin |wc -l`.to_i
+  action = "#{as[1]}".to_s
+
+  if action == "install"
+    if status == 0
+      `apt-get install -y #{as[0]}`
+      puts "#{as[0]} -> (I) installed"
+    elsif status == 1
+      puts "#{as[0]} -> ya está instalado"
+    end
+
+  elsif action == "remove"
+      if status == 1
+        `apt-get remove -y  #{as[0]}`
+        puts "#{as[0]} -> (U) uninstalled"
+      elsif status == 0
+        puts "#{as[0]} -> no está instalado"
+      end
+  end
+end
 
 if option == '--help'
   puts 'Usage:
@@ -26,11 +58,28 @@ elsif option == '--version'
 Fecha: 27/12/19'
 
 elsif option == '--status'
-  f = File.open("FILENAME.txt")
-  f_lines = f.read.split("\n")
-  puts f_lines
+  f = `cat #{filename} `
+  f_lines = f.split("\n")
+  f_lines.each do |a|
+    as = a.split(":")
+    check(as)
+  end
 
-elsif ARGV.empty?
+elsif option.nil?
   puts 'Se aconseja el uso de "--help" para ver la ayuda.'
 
+elsif option == '--run'
+  user = `id -u`.to_i
+
+  if user == 0
+    f = `cat #{filename} `
+    f_lines = f.split("\n")
+    f_lines.each do |a|
+      as = a.split(":")
+      install(as)
+    end
+  elsif user != 0
+    puts "Se necesita ser usuario root para ejecutar el script"
+    exit 1
+  end
 end
