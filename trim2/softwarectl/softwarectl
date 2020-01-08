@@ -1,36 +1,38 @@
-#!/usr/bin/ruby
+#!/usr/bin/env ruby
+
+require 'colorize'
 
 option = ARGV[0]
 filename = ARGV[1]
 
-def check(as)
-  status = `whereis #{as[0]} |grep bin |wc -l`.to_i
+def check(f_package)
+  status = `whereis #{f_package[0]} |grep bin |wc -l`.to_i
     if status == 0
-      puts "#{as[0]} ->  (U) uninstalled"
+      puts "#{f_package[0]} ->  (U) uninstalled".colorize(:yellow)
     elsif status == 1
-      puts "#{as[0]} ->  (I) installed"
+      puts "#{f_package[0]} ->  (I) installed".colorize(:green)
     end
 
 end
 
-def install(as)
-  status = `whereis #{as[0]} |grep bin |wc -l`.to_i
-  action = "#{as[1]}".to_s
+def install(f_package)
+  status = `whereis #{f_package[0]} |grep bin |wc -l`.to_i
+  action = "#{f_package[1]}".to_s
 
   if action == "install"
     if status == 0
-      `apt-get install -y #{as[0]}`
-      puts "#{as[0]} -> (I) installed"
+      `apt-get install -y #{f_package[0]}`
+      puts "#{f_package[0]} -> (I) installed".colorize(:green)
     elsif status == 1
-      puts "#{as[0]} -> ya está instalado"
+      puts "#{f_package[0]} -> (I) ya está instalado".colorize(:green)
     end
 
   elsif action == "remove"
       if status == 1
-        `apt-get remove -y  #{as[0]}`
-        puts "#{as[0]} -> (U) uninstalled"
+        `apt-get remove -y  #{f_package[0]}`
+        puts "#{f_package[0]} -> (U) uninstalled".colorize(:yellow)
       elsif status == 0
-        puts "#{as[0]} -> no está instalado"
+        puts "#{f_package[0]} -> (U) no está instalado".colorize(:yellow)
       end
   end
 end
@@ -45,7 +47,6 @@ Options:
         --status FILENAME, comprueba si puede instalar/desintalar.
         --run FILENAME, instala/desinstala el software indicado.
 Description:
-
         Este script se encarga de instalar/desinstalar
         el software indicado en el fichero FILENAME.
         Ejemplo de FILENAME:
@@ -55,14 +56,14 @@ Description:
 
 elsif option == '--version'
   puts 'Autor: Alberto Hernández
-Fecha: 27/12/19'
+Fecha: 08/01/20'
 
 elsif option == '--status'
-  f = `cat #{filename} `
-  f_lines = f.split("\n")
+  file = `cat #{filename}`
+  f_lines = file.split("\n")
   f_lines.each do |a|
-    as = a.split(":")
-    check(as)
+    f_package = a.split(":")
+    check(f_package)
   end
 
 elsif option.nil?
@@ -72,14 +73,15 @@ elsif option == '--run'
   user = `id -u`.to_i
 
   if user == 0
-    f = `cat #{filename} `
-    f_lines = f.split("\n")
+    file = `cat #{filename}`
+    f_lines = file.split("\n")
     f_lines.each do |a|
-      as = a.split(":")
-      install(as)
+      f_package = a.split(":")
+      install(f_package)
     end
+
   elsif user != 0
-    puts "Se necesita ser usuario root para ejecutar el script"
+    puts "Se necesita ser usuario root para ejecutar el script".colorize(:yellow)
     exit 1
   end
 end
