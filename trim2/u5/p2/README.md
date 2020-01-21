@@ -68,35 +68,35 @@
 
   Paramos el servicio:
 
-  ![](/img/5.png)
+  ![](img/5.png)
 
   Arrancamos el servicio:
 
-  ![](/img/6.png)
+  ![](img/6.png)
 
 ## 3.2 Tareas programadas
 
   - ```crontab -l```, vemos que no hay ninguna configuración creada.
 
-    ![](/img/1.png)
+    ![](img/1.png)
 
 
   - ```crontab -e```, se nos abre un editor.
 
-    ![](/img/7.png)
+    ![](img/7.png)
 
   - Pulsamos i(insert) y añadimos una configuración programa una ejecución del script cada 5 minutos:
 
-    ![](/img/2.png)  
+    ![](img/2.png)  
 
   - ```crontab -l```, para consultar la tarea programada.
 
-      ![](/img/8.png)
+      ![](img/8.png)
 
   - Paramos el servicio.
 
-      ![](/img/3.png)
+      ![](img/3.png)
 
   - Esperamos 5 minutos y ahora debe haberse iniciado de forma automática (con crontab):
 
-      ![](/img/4.png)
+      ![](img/4.png)
