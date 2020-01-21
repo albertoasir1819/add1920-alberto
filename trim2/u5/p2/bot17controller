@@ -1,0 +1,7 @@
+#!/usr/bin/env ruby
+
+status = `systemctl status bot17 | grep Active`.split
+
+if status[1] == "failed"
+  `systemctl restart bot17`
+end
