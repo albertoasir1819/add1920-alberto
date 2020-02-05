@@ -266,7 +266,6 @@ Vamos a crear un estado llamado `users` que nos servirá para crear un grupo y u
 ![](img/6.1.2.png)
     
 * Aplicar el estado.
-![](img/6.1.5.png)
 
 ![](img/6.1.4.png)
 
@@ -283,6 +282,8 @@ Vamos a crear un estado llamado `users` que nos servirá para crear un grupo y u
 ![](img/6.2.3.png)
 
 Comprobamos con el usuario koji17 que se han creado las carpetas:
+
+![](img/6.1.5.png)
 
 ![](img/6.2.4.png)
 
