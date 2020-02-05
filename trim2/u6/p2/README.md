@@ -1,3 +1,11 @@
+# 1. Salt-stack
+
+Hay varias herramientas conocidas del tipo gestor de infrastructura como Puppet, Chef y Ansible. En esta actividad vamos a practicar Salt-stack con OpenSUSE.
+
+# 2. Preparativos
+
+![](img/2.png)
+
 # 3. Master: instalar y configurar.
 
 * Vamos a la MV1
@@ -32,7 +40,7 @@ Unaccepted Keys:
 Rejected Keys:
 ```
 ![](img/3.5.png)
----
+
 # 4. Minion
 
 Los Minios son los equipos que van a estar bajo el control del Máster.
@@ -112,7 +120,7 @@ minionXXg:
 
 > El símbolo `'*'` representa a todos los minions aceptados. Se puede especificar un minion o conjunto de minios concretos.
 
----
+
 # 5. Salt States
 
 ## 5.1 Preparar el directorio para los estados
@@ -179,7 +187,7 @@ Ir al Master:
 ```
 base:       
   '*':
-    - apache
+    - ap
 ```
 
 ![](img/5.3.1.png)
@@ -233,15 +241,73 @@ Total states run:     2
 Total run time: 105.971 s
 ```
 
+![](img/5.4.3.png)
+
+![](img/5.4.4.png)
+
 > NOTA: Con este comando `salt '*' state.highstate`, también se pueden invocar todos los estados.
 
----
-# 6. Crear estado "users"
+# 6. Crear más estados
 
-Crear un estado llamado "users" que nos sirva para crear un usuario llamado "saltXX" en las máquinas Minions.
+## 6.1 Crear estado "users"
 
----
-# 7. Añadir minion
+Vamos a crear un estado llamado `users` que nos servirá para crear un grupo y usuarios en las máquinas Minions.
 
-* Crear MV3 con SO Windows (minionXXw)
-* Instalar salt-minion y agregar al master.
+* Crear directorio `/srv/salt/base/users`.
+
+![](img/6.1.1.png)
+
+* Crear fichero `/srv/salt/base/users/init.sls` con las definiones para crear los siguiente:
+    * Grupo `mazingerz`
+    * Usuarios `kojiXX`, `drinfiernoXX` dentro de dicho grupo.
+
+![](img/6.1.3.png)
+
+![](img/6.1.2.png)
+    
+* Aplicar el estado.
+![](img/6.1.5.png)
+
+![](img/6.1.4.png)
+
+## 6.2 Crear estado "directories"
+
+* Crear estado `drectories` para crear las carpetas `private` (700), `public` (755) y `group` (750) en el home del usuario `koji`.
+
+![](img/6.2.1.png)
+
+![](img/6.2.2.png)
+
+* Aplicar el estado.
+
+![](img/6.2.3.png)
+
+Comprobamos con el usuario koji17 que se han creado las carpetas:
+
+![](img/6.2.4.png)
+
+# 7. Añadir Minion de otro SO
+
+* Crear MV3 con SO Windows (minion17w)
+
+![](img/7.7.png)
+
+* Instalar `salt-minion`.
+
+Añadimos al archivo de hosts de windows el master17g:
+
+![](img/7.4.png)
+
+Instalamos el servicio:
+
+![](img/7.1.png)
+
+![](img/7.2.png)
+
+
+ * Agregamos al máster el minion17w.
+
+![](img/7.5.png)
+
+![](img/7.6.png)
+
