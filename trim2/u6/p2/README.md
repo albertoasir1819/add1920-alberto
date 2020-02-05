@@ -8,7 +8,7 @@
 
 * Modificar `/etc/salt/master` para configurar nuestro master con:
 ```
-interface: 172.19.XX.31
+interface: 172.19.17.31
 file_roots:
   base:
     - /srv/salt
@@ -45,7 +45,7 @@ Los Minios son los equipos que van a estar bajo el control del Máster.
 
 * Modificar `/etc/salt/minion` para definir quien será nuestro Máster:
 ```
-master: 172.19.XX.31
+master: 172.19.17.31
 ```
 
 ![](img/4.1.2.png)
@@ -69,6 +69,10 @@ master: 172.19.XX.31
 
 * Hay que asegurarse de que el cortafuegos permite las conexiones al servicio Salt.
 
+
+![](img/4.2.1.png)
+
+
 ## 4.3 Aceptación desde el Master
 
 Ir a MV1:
@@ -80,8 +84,15 @@ Unaccepted Keys:
 minionXXg
 Rejected Keys:
 ```
+![](img/4.3.1.png)
+
 * `salt-key -a minionXXg`, para que el Máster acepte a dicho Minion.
+
+![](img/4.3.2.png)
+
 * `salt-key -L`, comprobamos.
+
+![](img/4.3.3.png)
 
 ## 4.3 Comprobamos conectividad
 
@@ -95,15 +106,14 @@ minionXXg:
     True
 ```
 
+![](img/4.3.4.png)
+
+![](img/4.3.5.png)
+
 > El símbolo `'*'` representa a todos los minions aceptados. Se puede especificar un minion o conjunto de minios concretos.
 
 ---
 # 5. Salt States
-
-> Enlaces de interés:
-> * [Learning SaltStack - top.sls (1 of 2)](https://www.youtube.com/watch?v=UOzmExyAXOM&t=8s)
-> * [Learning SaltStack - top.sls (2 of 2)](https://www.youtube.com/watch?v=1KblVBuHP2k)
-> * [Repositorio GitHub con estados de ejemplo](https://github.com/AkhterAli/saltstates/)
 
 ## 5.1 Preparar el directorio para los estados
 
@@ -111,6 +121,10 @@ Vamos a crear directorios para guardar lo estados de Salt. Los estados de Salt s
 
 Ir al Máster:
 * Crear directorios `/srv/salt/base` y `/srv/salt/dev`.
+
+![](img/5.1.1.png)
+
+
 * Crear archivo `/etc/salt/master.d/roots.conf` con el siguiente contenido:
 ```
 file_roots:
@@ -119,7 +133,13 @@ file_roots:
   devel:
     - /srv/salt/devel
 ```
+![](img/5.1.2.png)
+
+![](img/5.1.3.png)
+
 * Reiniciar el servicio del Máster.
+
+![](img/5.1.4.png)
 
 Hemos creado dos directorios:
 * base = para guardar nuestros estados.
@@ -141,6 +161,9 @@ apache_service:
     - name: apache2
     - enable: True
 ```
+![](img/5.2.1.png)
+
+![](img/5.2.2.png)
 
 Entendamos las definiciones:
 * La primera línea es un identificador (ID) del estado.
@@ -158,18 +181,31 @@ base:
   '*':
     - apache
 ```
+
+![](img/5.3.1.png)
+
+![](img/5.3.2.png)
+
 * `salt '*' state.show_states`, consultar los estados que tenemos:
 ```
 minionXXg:
     - apache
 ```
+![](img/5.3.3.png)
+
 
 ## 5.4 Aplicar el nuevo estado
 
 Ir al Master:
 * Consultar los estados en detalle y verificar que no hay errores en las definiciones.
     * `salt '*' state.show_lowstate`
+
+![](img/5.4.1.png)
+
     * `salt '*' state.show_highstate`,
+
+![](img/5.4.2.png)
+
 * `salt '*' state.apply apache`, para aplicar el nuevo estado en todos los minions. OJO: Esta acción puede tardar un tiempo.
 
 ```
